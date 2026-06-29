@@ -1,4 +1,7 @@
 let cart = [];
+let allProducts = [];
+let currentPage = 1;
+const itemsPerPage = 20;
 const appContainer = document.getElementById('app');
 const cartCountEl = document.getElementById('cart-count');
 
@@ -7,27 +10,58 @@ renderListing();
 // TASK 1: Listing Page
 async function renderListing() {
     appContainer.innerHTML = '<h2>Loading products...</h2>';
-    try {
-        const response = await fetch('https://dummyjson.com/products?limit=20');
-        const data = await response.json();
 
-        let html = '<div class="product-grid">';
-        data.products.forEach(product => {
-            html += `
-                <div class="product-card">
-                    <img src="${product.thumbnail}" alt="${product.title}" onclick="renderProduct(${product.id})">
-                    <h2 class="product-title" title="${product.title}">${product.title}</h2>
-                    <p class="product-price">$${product.price}</p>
-                    <button class="btn btn-secondary" onclick="renderProduct(${product.id})">View Details</button>
-                </div>
-            `;
-        });
-        html += '</div>';
-        appContainer.innerHTML = html;
+    try {
+        if (allProducts.length === 0) {
+            const response = await fetch('https://dummyjson.com/products?limit=194');
+            const data = await response.json();
+            allProducts = data.products;
+        }
+        displayPage(currentPage);
+
     } catch (error) {
         appContainer.innerHTML = '<p style="color:red;">Failed to load products.</p>';
     }
 }
+
+// Function to slice the array and render a specific page
+function displayPage(page) {
+    currentPage = page;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedItems = allProducts.slice(startIndex, endIndex);
+
+    let html = '<div class="product-grid">';
+    paginatedItems.forEach(product => {
+        html += `
+            <div class="product-card">
+                <img src="${product.thumbnail}" alt="${product.title}" onclick="renderProduct(${product.id})">
+                <h2 class="product-title" title="${product.title}">${product.title}</h2>
+                <p class="product-price">$${product.price}</p>
+                <button class="btn btn-secondary" onclick="renderProduct(${product.id})">View Details</button>
+            </div>
+        `;
+    });
+    html += '</div>';
+    html += renderPaginationControls();
+    appContainer.innerHTML = html;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Function to build the Prev/Next and Page Number buttons
+function renderPaginationControls() {
+    const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+    let controlsHtml = '<div class="pagination">';
+    controlsHtml += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="displayPage(${currentPage - 1})">Prev</button>`;
+    for (let i = 1; i <= totalPages; i++) {
+        controlsHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="displayPage(${i})">${i}</button>`;
+    }
+    controlsHtml += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="displayPage(${currentPage + 1})">Next</button>`;
+
+    controlsHtml += '</div>';
+    return controlsHtml;
+}
+
 
 // TASK 2: Product Page
 async function renderProduct(id) {
