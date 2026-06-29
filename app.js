@@ -102,7 +102,10 @@ function addToCart(product) {
     }
 
     cartCountEl.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
-    alert(`${product.title} added to cart!`);
+    cartCountEl.classList.remove('cart-animate');
+    void cartCountEl.offsetWidth;
+    cartCountEl.classList.add('cart-animate');
+    alert(`${product.title} has been added to your cart.`);
 }
 
 function renderCartPage() {
