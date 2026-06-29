@@ -4,13 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <title>ShopNxt</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <h1 class="logo" onclick="renderListing()">ShopNxt</h1>
+        <div class="brand" onclick="renderListing()">
+            <img src="assets/logo.png" alt="ShopNxt Logo" class="logo-img">
+            <span class="brand-name">ShopNxt</span>
+        </div>
         <button class="btn btn-primary" onclick="renderCartPage()">
             Cart (<span id="cart-count">0</span>)
         </button>

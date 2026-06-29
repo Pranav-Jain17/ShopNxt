@@ -26,12 +26,32 @@ body {
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: sticky;
+    z-index: 1000;
     top: 0;
 }
 
-.logo {
-    color: #0056b3;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     cursor: pointer;
+}
+
+.brand-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0056b3;
+    letter-spacing: 0.5px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    transition: transform 0.2s ease;
+}
+
+.brand:hover .logo-img {
+    transform: scale(1.08) rotate(-5deg);
 }
 
 .btn {
