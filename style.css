@@ -133,3 +133,63 @@ body {
     margin-top: 20px;
     text-decoration: underline;
 }
+
+/* Task 3: Cart Layout & Summary */
+.cart-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.cart-items-container {
+    flex: 2;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.cart-summary {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.summary-total {
+    border-top: 2px solid #eee;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
